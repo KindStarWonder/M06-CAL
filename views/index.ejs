@@ -3,22 +3,50 @@
 <body>
     <% const name = 'Tarzan' %><!--this works now even though intellisense doens't see it-->
     <%- include('./partials/nav.ejs') %>
+    <link rel="StyleSheet" href="styles.css">
     <%= name %>
+
     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus, maiores.</p><hr>
     <div class="courselist">
-    <% if (courses.length > 0 ) { %>
-        <% courses.forEach(course => { %>
+        <table>
+            <tr><center><h3>Classical Prerequisits in General Studies</h3></center></tr>
+            <tr><p font-color="red"><font color="red">*All prerequisite courses are level 100 courses with no prerequisites.</font></p></tr>
+            <tr><td>Name</td><td>Description</td><td>Dept</td><td>Credits</td></tr>
+    <% if (courses1.length > 0 ) { %>
+        <% courses1.forEach(course => { %>
+            <tr>
+                <td><%=course.name%>,</td>
+                <td><%=course.desc%>,     </td>
+                <td><%=course.subject%>,     </td>
+                <td><%=course.cred%></td>
+            </tr><br>
+            <% }) %>
+        
+        <% } else { %>
+                <p>There are no courses to display...</p>
+            <% } %><!--EJS does serverside rendering of dynamic pages-->
+        </table>
+    </div><hr>
+    <div class="courselist">
+        <table>
+            <tr><center><h3>Database Inventory of Degree Program Courses</h3></center></tr>
+            <tr><td>Name</td><td>Description</td><td>Dept</td><td>Level</td><td>Prerequisite</td><td>Credits</td></tr>
+    <% if (courses2.length > 0 ) { %>
+        <% courses2.forEach(course => { %>
             <tr>
                 <td><%=course.name%>,</td>
                 <td><%=course.desc%>,</td>
-                <td><%=course.subject%>,</td>
+                <td><%=course.dept%>,</td>
+                <td><%=course.levl%>,</td>
+                <td><%=course.preq%>,</td>
                 <td><%=course.cred%></td>
             </tr><br>
             <% }) %>
         <% } else { %>
-                <p>There are no courses to display...</p>
+                <p>There are no database courses to display...</p>
             <% } %><!--EJS does serverside rendering of dynamic pages-->
-    </div>
+        </table>
+        </div>
     <%- include('./partials/foot.ejs') %>
 </body>
 </html>

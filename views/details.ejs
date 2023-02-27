@@ -1,0 +1,34 @@
+<html>
+   <%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <!--This styles.css needs double dot to say parent parent directory becuase it is relative to inside /blargs with single dot-->
+    <link rel="StyleSheet" href="../styles.css">
+    <div class="details content">
+        <h2><%= blarg.title %></h2>
+        <div>
+            <p><%= blarg.body %></p>
+        </div>
+        <a class="delete" data-doc="<%= blarg._id %>">delete</a>
+    </div>
+    <%- include('./partials/foot.ejs') %>
+    <script>
+        const trashcan= document.querySelector('a.delete');
+        trashcan.addEventListener('click', (e)=>{
+            const endpoint=`/blarg/${trashcan.dataset.doc}`;//not single quotes, these are back ticks below the esc key
+            //this thing right here is ^^^ called a template string
+
+            fetch(endpoint, {
+                method: 'DELETE'
+            })
+            .then((response)=>response.json())
+            //.then((data)=>console.log(data))
+            .then((data)=>window.location.href = data.redirect)
+            .catch(err=>console.log(err));
+            console.log('clicked-eventhandleractive');
+        })
+    </script>
+   
+
+</body>
+</html>
